@@ -1,26 +1,35 @@
 import React from 'react';
-import logo from './logo.svg';
+import Button from '@material-ui/core/Button';
+import Table from './Table';
+
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+  state = {
+    hide: true
+  };
+
+  toggleAdd = e => {
+    this.setState({
+      hide: !this.state.hide
+    });
+  };
+
+  render() {
+    return (
+      <div className="App">
+        <h2>Configuration Manager</h2>
+        <h4>Add and manage all your integration configs.</h4>
+        <Table />
+        <div className="ButtonContainer">
+          <Button variant="contained" color="primary" onClick={this.toggleAdd}>
+            Add config
+          </Button>
+          {!this.state.hide && <p>Add a new config.</p>}
+        </div>
+      </div>
+    );
+  }
 }
 
 export default App;
