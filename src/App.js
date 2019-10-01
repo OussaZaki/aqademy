@@ -3,6 +3,7 @@ import Button from '@material-ui/core/Button';
 import Table from './Table';
 
 import './App.css';
+import { ProductForm } from './Form';
 
 class App extends React.Component {
   state = {
@@ -27,6 +28,7 @@ class App extends React.Component {
           </Button>
           {!this.state.hide && <p>Add a new config.</p>}
         </div>
+        <ProductForm />
       </div>
     );
   }

@@ -9,8 +9,6 @@ export class ProductForm extends React.Component {
       name: ''
     };
 
-    this.nameChange = this.nameChange.bind(this);
-    this.submitForm = this.submitForm.bind(this);
   }
 
   onNameChange(e) {
@@ -30,7 +28,7 @@ export class ProductForm extends React.Component {
 
   render() {
     return (
-      <form>
+      <form className="form-config">
         <h3>Enter a new product</h3>
         <label>
           Name
@@ -38,12 +36,12 @@ export class ProductForm extends React.Component {
         </label>
         <label>
           {' '}
-          Category
+          Address
           <input type="text" />
         </label>
         <label>
           {' '}
-          Price
+          PostCode
           <input type="number" />
         </label>
         <label>
@@ -52,6 +50,7 @@ export class ProductForm extends React.Component {
           <input type="checkbox" />
         </label>
         <input type="submit" value="submit" onClick={this.submitForm} />
+        <Button value="SUBMIT" />
       </form>
     );
   }
