@@ -1,9 +1,7 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
-
 import Table from '../components/ConfigTable';
 import ConfigForm from '../components/ConfigForm';
-
 
 function createData(integration, tms, environment, status) {
   return { integration, tms, environment, status };
@@ -15,30 +13,34 @@ const configs = [
   createData('unifaun1', 'unifaun', 'US_TEST', false)
 ];
 
-class Configurations extends React.Component {
-  state = {};
+export default function Configurations() {
+  const [open, setOpen] = React.useState(false);
 
-  toggleAdd = e => {
-    console.log('show form here');
+  const handleClickOpen = () => {
+    setOpen(true);
   };
 
-  render() {
-    return (
-      <div className="configurations-container">
-        <div className="HeaderContainer">
-          <h2>Configuration Manager</h2>
-          <h4>Add and manage all your integration configs.</h4>
-        </div>
-        <Table configs={configs} />
-        <div className="ButtonContainer">
-          <Button variant="contained" color="primary" onClick={this.toggleAdd}>
-            Add config
-          </Button>
-        </div>
-        <ConfigForm />
-      </div>
-    );
-  }
-}
+  const handleClose = () => {
+    setOpen(false);
+  };
 
-export default Configurations;
+  return (
+    <div className="configurations-container">
+      <div className="HeaderContainer">
+        <h2>Configuration Manager</h2>
+        <h4>Add and manage all your integration configs.</h4>
+      </div>
+      <Table configs={configs} />
+      <div className="ButtonContainer">
+        <Button variant="contained" color="primary" onClick={handleClickOpen}>
+          Add config
+        </Button>
+      </div>
+      <ConfigForm
+        open={open}
+        closeCallback={handleClose}
+        aria-labelledby="form-dialog-title"
+      />
+    </div>
+  );
+}
