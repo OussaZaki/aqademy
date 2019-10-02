@@ -23,17 +23,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-function createData(integration, tms, environment, status) {
-  return { integration, tms, environment, status };
-}
-
-const rows = [
-  createData('Postnord_test', 'postnord', 'EU_TEST', true),
-  createData('posti_tmp', 'ghostship', 'TMP_PT', false),
-  createData('unifaun1', 'unifaun', 'US_TEST', false)
-];
-
-export default function SimpleTable() {
+export default function ConfigTable({ configs }) {
   const classes = useStyles();
 
   return (
@@ -48,20 +38,20 @@ export default function SimpleTable() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map(row => (
-            <TableRow key={row.integration}>
+          {configs.map(config => (
+            <TableRow key={config.integration}>
               <TableCell component="th" scope="row">
-                {row.integration}
+                {config.integration}
               </TableCell>
-              <TableCell align="right">{row.tms}</TableCell>
-              <TableCell align="right">{row.environment}</TableCell>
+              <TableCell align="right">{config.tms}</TableCell>
+              <TableCell align="right">{config.environment}</TableCell>
               <TableCell align="right">
                 <Chip
                   clickable
-                  label={row.status ? 'active' : 'inactive'}
+                  label={config.status ? 'active' : 'inactive'}
                   className={classes.chip}
                   onClick={() => console.log('incative')}
-                  color={row.status ? 'primary' : 'secondary'}
+                  color={config.status ? 'primary' : 'secondary'}
                 />
               </TableCell>
             </TableRow>
