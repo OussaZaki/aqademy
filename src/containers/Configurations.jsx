@@ -1,6 +1,9 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
+
 import Table from '../components/ConfigTable';
+import ConfigForm from '../components/ConfigForm';
+
 
 function createData(integration, tms, environment, status) {
   return { integration, tms, environment, status };
@@ -32,7 +35,7 @@ class Configurations extends React.Component {
             Add config
           </Button>
         </div>
-        <ProductForm />
+        <ConfigForm />
       </div>
     );
   }
