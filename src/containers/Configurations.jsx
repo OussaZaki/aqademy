@@ -2,31 +2,27 @@ import React from 'react';
 import Button from '@material-ui/core/Button';
 import Table from './Table';
 
-import './App.css';
 import { ProductForm } from './Form';
 
-class App extends React.Component {
-  state = {
-    hide: true
-  };
+class Configurations extends React.Component {
+  state = {};
 
   toggleAdd = e => {
-    this.setState({
-      hide: !this.state.hide
-    });
+    console.log('show form here');
   };
 
   render() {
     return (
-      <div className="App">
-        <h2>Configuration Manager</h2>
-        <h4>Add and manage all your integration configs.</h4>
+      <div className="configurations-container">
+        <div className="HeaderContainer">
+          <h2>Configuration Manager</h2>
+          <h4>Add and manage all your integration configs.</h4>
+        </div>
         <Table />
         <div className="ButtonContainer">
           <Button variant="contained" color="primary" onClick={this.toggleAdd}>
             Add config
           </Button>
-          {!this.state.hide && <p>Add a new config.</p>}
         </div>
         <ProductForm />
       </div>
@@ -34,4 +30,4 @@ class App extends React.Component {
   }
 }
 
-export default App;
+export default Configurations;
