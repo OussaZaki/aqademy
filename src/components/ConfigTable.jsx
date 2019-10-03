@@ -23,7 +23,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function ConfigTable({ configs }) {
+export default function ConfigTable({ configs, onToggle, onClick }) {
   const classes = useStyles();
 
   return (
@@ -31,17 +31,17 @@ export default function ConfigTable({ configs }) {
       <Table className={classes.table}>
         <TableHead>
           <TableRow>
-            <TableCell>Integration</TableCell>
-            <TableCell align="right">TMS</TableCell>
-            <TableCell align="right">ENVIRONMENT</TableCell>
-            <TableCell align="right">STATUS</TableCell>
+            <TableCell>Profile</TableCell>
+            <TableCell align="right">Tms</TableCell>
+            <TableCell align="right">Environment</TableCell>
+            <TableCell align="right">Status</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {configs.map(config => (
-            <TableRow key={config.integration}>
+            <TableRow key={config.profile} onClick={() => onClick(config.profile)}>
               <TableCell component="th" scope="row">
-                {config.integration}
+                {config.profile}
               </TableCell>
               <TableCell align="right">{config.tms}</TableCell>
               <TableCell align="right">{config.environment}</TableCell>
@@ -50,7 +50,7 @@ export default function ConfigTable({ configs }) {
                   clickable
                   label={config.status ? 'active' : 'inactive'}
                   className={classes.chip}
-                  onClick={() => console.log('incative')}
+                  onClick={() => onToggle(config.profile)}
                   color={config.status ? 'primary' : 'secondary'}
                 />
               </TableCell>
