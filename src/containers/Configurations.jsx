@@ -38,8 +38,13 @@ export default function Configurations() {
   };
 
   const handleActiveToggle = profile => {
-    const newProfiles = toggleConfig(configs, profile);
-    setConfigs(newProfiles);
+    const newConfigs = toggleConfig(configs, profile);
+    setConfigs(newConfigs);
+  };
+
+  const handleSubmit = config => {
+    const newConfigs = configs.push(config);
+    setConfigs(newConfigs);
   };
 
   return (
@@ -60,6 +65,7 @@ export default function Configurations() {
       </div>
       <ConfigForm
         open={open}
+        submit={handleSubmit}
         closeCallback={handleClose}
         aria-labelledby="form-dialog-title"
       />

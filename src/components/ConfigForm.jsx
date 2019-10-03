@@ -7,7 +7,18 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
-export default function ConfigForm({ open, closeCallback }) {
+export default function ConfigForm({ open, closeCallback, submit }) {
+  // The idea is to save the config in the ConfigForm state.
+  // then just passe it up to the parent container Configurations through the callback submit (line 45)
+  const [config, setConfig] = React.useState({
+    profile: '',
+    environment: undefined,
+    tms: undefined,
+    identifier: '',
+    key: ''
+  });
+
+  // TODO: add handlers to update the config in the state using setConfig() while validating the steps.
   return (
     <Dialog
       open={open}
@@ -32,7 +43,7 @@ export default function ConfigForm({ open, closeCallback }) {
         <Button onClick={closeCallback} color="primary">
           Cancel
         </Button>
-        <Button onClick={closeCallback} color="primary">
+        <Button onClick={() => submit(config)} color="primary">
           Submit
         </Button>
       </DialogActions>
