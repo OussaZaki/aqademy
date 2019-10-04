@@ -1,16 +1,16 @@
-import React from 'react';
-import Button from '@material-ui/core/Button';
-import Table from '../components/ConfigTable';
-import ConfigForm from '../components/ConfigForm';
+import React from "react";
+import Button from "@material-ui/core/Button";
+import Table from "../components/ConfigTable";
+import ConfigForm from "../components/ConfigForm";
 
 function createData(profile, tms, environment, status) {
   return { profile, tms, environment, status };
 }
 
 const _configs = [
-  createData('Postnord_test', 'postnord', 'EU_TEST', true),
-  createData('posti_tmp', 'ghostship', 'TMP_PT', false),
-  createData('unifaun1', 'unifaun', 'US_TEST', false)
+  createData("Postnord_test", "postnord", "EU_TEST", true),
+  createData("posti_tmp", "ghostship", "TMP_PT", false),
+  createData("unifaun1", "unifaun", "US_TEST", false)
 ];
 
 function toggleConfig(_configs, profile) {
