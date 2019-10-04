@@ -67,19 +67,8 @@ const CssTextField = withStyles({
   }
 })(TextField);
 
-export default function IdentifierForm() {
+export default function IdentifierForm({ setConfig }) {
   const classes = useStyles();
-  const [state, setState] = React.useState({
-    tms: "",
-    name: "hai"
-  });
-
-  const handleChangeAgain = name => event => {
-    setState({
-      ...state,
-      [name]: event.target.value
-    });
-  };
 
   return (
     <React.Fragment>
@@ -102,7 +91,7 @@ export default function IdentifierForm() {
             <Select
               native
               value={state.tms}
-              onChange={handleChangeAgain("tms")}
+              onChange={setConfig("tms")}
               inputProps={{
                 name: "tms",
                 id: "tms-native-simple"

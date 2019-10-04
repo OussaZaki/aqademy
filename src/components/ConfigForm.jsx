@@ -1,59 +1,59 @@
-import React from "react";
+import React from 'react';
 import {
   makeStyles,
   Button,
   Dialog,
   DialogContent,
   DialogActions
-} from "@material-ui/core";
-import IntegrationForm from "./IntegrationForm";
-import IdentifierForm from "./IdentifierForm";
+} from '@material-ui/core';
+import IntegrationForm from './IntegrationForm';
+import IdentifierForm from './IdentifierForm';
 
 const useStyles = makeStyles(theme => ({
   dialog: {
-    "& .MuiDialog-paperWidthSm": {
+    '& .MuiDialog-paperWidthSm': {
       width: 500
     }
   },
   dialogcontent: {
-    overflow: "hidden",
-    padding: "30px 30px 50px",
-    display: "block",
-    height: "200px"
+    overflow: 'hidden',
+    padding: '30px 30px 50px',
+    display: 'block',
+    height: '200px'
   },
   dialogtitle: {
     fontSize: 40,
     padding: 20,
-    justifyContent: "center"
+    justifyContent: 'center'
   },
   dialogbutton: {
     width: 80,
     height: 50,
-    background: "black",
-    color: "white",
+    background: 'black',
+    color: 'white',
     fontSize: 15,
-    fontWeight: "bold",
-    "& .MuiButton-contained:hover": {
-      backgroundColor: "green"
+    fontWeight: 'bold',
+    '& .MuiButton-contained:hover': {
+      backgroundColor: 'green'
     }
   },
   dialogbutton2: {
     width: 80,
     height: 50,
-    fontWeight: "bold"
+    fontWeight: 'bold'
   }
 }));
 
-const steps = ["Integration", "Identifier and Key"];
+const steps = ['Integration', 'Identifier and Key'];
 
-function getStepContent(step) {
+function getStepContent(step, setConfigCallback) {
   switch (step) {
     case 0:
-      return <IntegrationForm />;
+      return <IntegrationForm setConfig={setConfigCallback} />;
     case 1:
-      return <IdentifierForm />;
+      return <IdentifierForm setConfig={setConfigCallback} />;
     default:
-      throw new Error("Unknown step");
+      throw new Error('Unknown step');
   }
 }
 
@@ -77,8 +77,15 @@ export default function ConfigForm({ open, closeCallback, submit }) {
   };
 
   const handleSubmit = () => {
-    submit(config)
-  }
+    submit(config);
+  };
+
+  const setConfigCallback = name => event => {
+    setConfig({
+      ...config,
+      [name]: event.target.value
+    });
+  };
 
   return (
     <Dialog
@@ -88,7 +95,7 @@ export default function ConfigForm({ open, closeCallback, submit }) {
       className={classes.dialog}
     >
       <DialogContent className={classes.dialogcontent}>
-        {getStepContent(activeStep)}
+        {getStepContent(activeStep, setConfigCallback)}
       </DialogContent>
       <DialogActions>
         <Button onClick={closeCallback} className={classes.dialogbutton2}>
@@ -102,9 +109,9 @@ export default function ConfigForm({ open, closeCallback, submit }) {
         <Button
           variant="contained"
           className={classes.dialogbutton}
-          onClick={activeStep === steps.length - 1 ? handleSubmit  : handleNext}
+          onClick={activeStep === steps.length - 1 ? handleSubmit : handleNext}
         >
-          {activeStep === steps.length - 1 ? "Submit"  : "Next"}
+          {activeStep === steps.length - 1 ? 'Submit' : 'Next'}
         </Button>
       </DialogActions>
     </Dialog>

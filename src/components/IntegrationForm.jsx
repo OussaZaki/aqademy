@@ -67,7 +67,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function IntegrationForm() {
+export default function IntegrationForm({ setConfig }) {
   const classes = useStyles();
   const [state, setState] = React.useState({
     env: "",
