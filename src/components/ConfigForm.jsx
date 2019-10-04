@@ -1,39 +1,110 @@
-import React from 'react';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
+import React from "react";
+import {
+  makeStyles,
+  Button,
+  Dialog,
+  DialogContent,
+  DialogActions
+} from "@material-ui/core";
+import IntegrationForm from "./IntegrationForm";
+import IdentifierForm from "./IdentifierForm";
 
-export default function ConfigForm({ open, closeCallback }) {
+const useStyles = makeStyles(theme => ({
+  dialog: {
+    "& .MuiDialog-paperWidthSm": {
+      width: 500
+    }
+  },
+  dialogcontent: {
+    overflow: "hidden",
+    padding: "30px 30px 50px",
+    display: "block",
+    height: "200px"
+  },
+  dialogtitle: {
+    fontSize: 40,
+    padding: 20,
+    justifyContent: "center"
+  },
+  dialogbutton: {
+    width: 80,
+    height: 50,
+    background: "black",
+    color: "white",
+    fontSize: 15,
+    fontWeight: "bold",
+    "& .MuiButton-contained:hover": {
+      backgroundColor: "green"
+    }
+  },
+  dialogbutton2: {
+    width: 80,
+    height: 50,
+    fontWeight: "bold"
+  }
+}));
+
+const steps = ["Integration", "Identifier and Key"];
+
+function getStepContent(step) {
+  switch (step) {
+    case 0:
+      return <IntegrationForm />;
+    case 1:
+      return <IdentifierForm />;
+    default:
+      throw new Error("Unknown step");
+  }
+}
+
+export default function ConfigForm({ open, closeCallback, submit }) {
+  const classes = useStyles();
+  const [activeStep, setActiveStep] = React.useState(0);
+  const [config, setConfig] = React.useState({
+    profile: '',
+    environment: undefined,
+    tms: undefined,
+    identifier: '',
+    key: ''
+  });
+
+  const handleNext = () => {
+    setActiveStep(activeStep + 1);
+  };
+
+  const handleBack = () => {
+    setActiveStep(activeStep - 1);
+  };
+
+  const handleSubmit = () => {
+    submit(config)
+  }
+
   return (
     <Dialog
       open={open}
       onClose={closeCallback}
       aria-labelledby="config-form-dialog-title"
+      className={classes.dialog}
     >
-      <DialogTitle id="config-form-form-dialog-title">Add new config</DialogTitle>
-      <DialogContent>
-        <DialogContentText>
-          To add a new config you need your TMS identifier and key.
-        </DialogContentText>
-        <TextField
-          autoFocus
-          margin="dense"
-          id="name"
-          label="Config name"
-          type="text"
-          fullWidth
-        />
+      <DialogContent className={classes.dialogcontent}>
+        {getStepContent(activeStep)}
       </DialogContent>
       <DialogActions>
-        <Button onClick={closeCallback} color="primary">
+        <Button onClick={closeCallback} className={classes.dialogbutton2}>
           Cancel
         </Button>
-        <Button onClick={closeCallback} color="primary">
-          Submit
+        {activeStep !== 0 && (
+          <Button onClick={handleBack} className={classes.dialogbutton2}>
+            Back
+          </Button>
+        )}
+        <Button
+          variant="contained"
+          className={classes.dialogbutton}
+          onClick={activeStep === steps.length - 1 ? handleSubmit  : handleNext}
+        >
+          {activeStep === steps.length - 1 ? "Submit"  : "Next"}
         </Button>
       </DialogActions>
     </Dialog>
