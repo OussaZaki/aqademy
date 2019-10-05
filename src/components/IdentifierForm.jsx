@@ -6,7 +6,6 @@ import {
   InputLabel,
   Select,
   makeStyles,
-  withStyles,
   Typography
 } from "@material-ui/core";
 
@@ -45,29 +44,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const CssTextField = withStyles({
-  root: {
-    "& label.Mui-focused": {
-      color: "black"
-    },
-    "& .MuiInput-underline:after": {
-      borderBottomColor: "black"
-    },
-    "& .MuiOutlinedInput-root": {
-      "& fieldset": {
-        borderColor: "black"
-      },
-      "&:hover fieldset": {
-        borderColor: "black"
-      },
-      "&.Mui-focused fieldset": {
-        borderColor: "black"
-      }
-    }
-  }
-})(TextField);
-
-export default function IdentifierForm({ setConfig }) {
+export default function IdentifierForm({ tms, setConfig }) {
   const classes = useStyles();
 
   return (
@@ -90,7 +67,7 @@ export default function IdentifierForm({ setConfig }) {
             <InputLabel htmlFor="tms-native-simple">Choose TMS</InputLabel>
             <Select
               native
-              value={state.tms}
+              value={tms}
               onChange={setConfig("tms")}
               inputProps={{
                 name: "tms",
@@ -106,10 +83,10 @@ export default function IdentifierForm({ setConfig }) {
           </FormControl>
         </Grid>
         <Grid item xs={6}>
-          <CssTextField required id="identifier" label="Identifier" fullWidth />
+          <TextField required id="identifier" label="Identifier" fullWidth onChange={setConfig("identifier")}/>
         </Grid>
         <Grid item xs={6}>
-          <CssTextField
+          <TextField
             required
             id="key"
             label="Key"

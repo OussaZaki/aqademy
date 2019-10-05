@@ -10,48 +10,34 @@ import IntegrationForm from './IntegrationForm';
 import IdentifierForm from './IdentifierForm';
 
 const useStyles = makeStyles(theme => ({
-  dialog: {
-    '& .MuiDialog-paperWidthSm': {
-      width: 500
-    }
-  },
+
   dialogcontent: {
     overflow: 'hidden',
     padding: '30px 30px 50px',
     display: 'block',
-    height: '200px'
+    height: 250,
+    width: 400
   },
   dialogtitle: {
     fontSize: 40,
     padding: 20,
     justifyContent: 'center'
-  },
-  dialogbutton: {
-    width: 80,
-    height: 50,
-    background: 'black',
-    color: 'white',
-    fontSize: 15,
-    fontWeight: 'bold',
-    '& .MuiButton-contained:hover': {
-      backgroundColor: 'green'
-    }
-  },
-  dialogbutton2: {
-    width: 80,
-    height: 50,
-    fontWeight: 'bold'
   }
 }));
 
 const steps = ['Integration', 'Identifier and Key'];
 
-function getStepContent(step, setConfigCallback) {
+function getStepContent(step, config, setConfigCallback) {
   switch (step) {
     case 0:
-      return <IntegrationForm setConfig={setConfigCallback} />;
+      return <IntegrationForm setConfig={setConfigCallback} tms={config.tms} />;
     case 1:
-      return <IdentifierForm setConfig={setConfigCallback} />;
+      return (
+        <IdentifierForm
+          setConfig={setConfigCallback}
+          environment={config.environment}
+        />
+      );
     default:
       throw new Error('Unknown step');
   }
@@ -78,6 +64,7 @@ export default function ConfigForm({ open, closeCallback, submit }) {
 
   const handleSubmit = () => {
     submit(config);
+    closeCallback();
   };
 
   const setConfigCallback = name => event => {
@@ -95,20 +82,19 @@ export default function ConfigForm({ open, closeCallback, submit }) {
       className={classes.dialog}
     >
       <DialogContent className={classes.dialogcontent}>
-        {getStepContent(activeStep, setConfigCallback)}
+        {getStepContent(activeStep, config, setConfigCallback)}
       </DialogContent>
       <DialogActions>
-        <Button onClick={closeCallback} className={classes.dialogbutton2}>
+        <Button onClick={closeCallback}>
           Cancel
         </Button>
         {activeStep !== 0 && (
-          <Button onClick={handleBack} className={classes.dialogbutton2}>
+          <Button onClick={handleBack}>
             Back
           </Button>
         )}
         <Button
           variant="contained"
-          className={classes.dialogbutton}
           onClick={activeStep === steps.length - 1 ? handleSubmit : handleNext}
         >
           {activeStep === steps.length - 1 ? 'Submit' : 'Next'}
