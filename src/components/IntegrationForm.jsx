@@ -11,11 +11,7 @@ const useStyles = makeStyles(theme => ({
     color: 'gray',
     padding: '10px 0 10px'
   },
-  textField: {
-    marginLeft: theme.spacing(1),
-    marginRight: theme.spacing(1),
-    width: 200
-  },
+  textField: {},
   menu: {
     width: 200
   }
@@ -55,16 +51,17 @@ export default function IntegrationForm({ environment, setConfig }) {
       </Typography>
       <TextField
         required
-        onChange={setConfig('profile')}
         id="profile"
-        name="profile"
-        label="rofile Name"
+        label="Profile"
+        className={classes.textField}
+        onChange={setConfig('profile')}
+        margin="normal"
         fullWidth
       />
       <TextField
         id="environment"
         select
-        label="Choose Environment"
+        label="Environment"
         className={classes.textField}
         value={environment}
         onChange={setConfig('environment')}
@@ -75,6 +72,7 @@ export default function IntegrationForm({ environment, setConfig }) {
         }}
         helperText="Please choose an environment"
         margin="normal"
+        fullWidth
       >
         {enviroments.map(option => (
           <MenuItem key={option.value} value={option.value}>
