@@ -1,17 +1,7 @@
 import React from 'react';
-import {
-  TextField,
-  FormControl,
-  InputLabel,
-  Select,
-  makeStyles,
-  Typography
-} from '@material-ui/core';
+import { TextField, MenuItem, makeStyles, Typography } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
-  selectEmpty: {
-    marginTop: theme.spacing(2)
-  },
   dialogtitle: {
     fontSize: 40,
     alignText: 'center'
@@ -20,8 +10,31 @@ const useStyles = makeStyles(theme => ({
     fontSize: 15,
     color: 'gray',
     padding: '10px 0 10px'
+  },
+  textField: {
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1),
+    width: 200
+  },
+  menu: {
+    width: 200
   }
 }));
+
+const enviroments = [
+  {
+    value: 'eu_production',
+    label: 'eu_production'
+  },
+  {
+    value: 'eu_staging',
+    label: 'eu_staging'
+  },
+  {
+    value: 'us_staging',
+    label: 'us_staging'
+  }
+];
 
 export default function IntegrationForm({ environment, setConfig }) {
   const classes = useStyles();
@@ -48,23 +61,27 @@ export default function IntegrationForm({ environment, setConfig }) {
         label="rofile Name"
         fullWidth
       />
-      <FormControl>
-        <InputLabel htmlFor="env-native-simple">Choose Enviroment</InputLabel>
-        <Select
-          native
-          value={environment}
-          onChange={setConfig('environment')}
-          inputProps={{
-            name: 'env',
-            id: 'env-native-simple'
-          }}
-        >
-          <option value="" />
-          <option value="EN_US">EN_US</option>
-          <option value="SE_KR">SE_KR</option>
-          <option value="MA_DH">MA_DH</option>
-        </Select>
-      </FormControl>
+      <TextField
+        id="environment"
+        select
+        label="Choose Environment"
+        className={classes.textField}
+        value={environment}
+        onChange={setConfig('environment')}
+        SelectProps={{
+          MenuProps: {
+            className: classes.menu
+          }
+        }}
+        helperText="Please choose an environment"
+        margin="normal"
+      >
+        {enviroments.map(option => (
+          <MenuItem key={option.value} value={option.value}>
+            {option.label}
+          </MenuItem>
+        ))}
+      </TextField>
     </React.Fragment>
   );
 }
