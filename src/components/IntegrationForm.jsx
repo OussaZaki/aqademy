@@ -3,13 +3,15 @@ import { TextField, MenuItem, makeStyles, Typography } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
   dialogtitle: {
-    fontSize: 40,
-    alignText: 'center'
+    fontSize: 36,
+    letterSpacing: -0.2,
+    fontWeight: 700,
+    textAlign: 'left'
   },
   dialogtext: {
-    fontSize: 15,
-    color: 'gray',
-    padding: '10px 0 10px'
+    fontSize: 19,
+    fontWeight: 400,
+    textAlign: 'left'
   },
   textField: {},
   menu: {
