@@ -1,48 +1,46 @@
-import React from "react";
+import React from 'react';
 import {
   Grid,
   TextField,
-  FormControl,
-  InputLabel,
-  Select,
+  MenuItem,
   makeStyles,
   Typography
-} from "@material-ui/core";
+} from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
-  root: {
-    width: "100%",
-    "& label.Mui-focused": {
-      color: "black"
-    },
-    "& .MuiInput-underline:after": {
-      borderBottomColor: "black"
-    },
-    "& .MuiOutlinedInput-root": {
-      "& fieldset": {
-        borderColor: "black"
-      },
-      "&:hover fieldset": {
-        borderColor: "black"
-      },
-      "&.Mui-focused fieldset": {
-        borderColor: "black"
-      }
-    }
-  },
-  selectEmpty: {
-    marginTop: theme.spacing(2)
-  },
   dialogtitle: {
-    fontSize: 40,
-    alignText: "center"
+    fontSize: 36,
+    letterSpacing: -0.2,
+    fontWeight: 700,
+    textAlign: 'left'
   },
   dialogtext: {
-    fontSize: 15,
-    color: "gray",
-    padding: "10px 0 10px"
+    fontSize: 19,
+    fontWeight: 400,
+    textAlign: 'left'
+  },
+  textField: {
+    marginTop: 20
+  },
+  menu: {
+    width: 200
   }
 }));
+
+const tmsList = [
+  {
+    value: 'unifaun',
+    label: 'Unifaun'
+  },
+  {
+    value: 'ship_walet',
+    label: 'Ship wallet'
+  },
+  {
+    value: 'logistics_delux',
+    label: 'Logistics delux'
+  }
+];
 
 export default function IdentifierForm({ tms, setConfig }) {
   const classes = useStyles();
@@ -61,29 +59,38 @@ export default function IdentifierForm({ tms, setConfig }) {
       >
         Choose your TMS and enter your login Credentials
       </Typography>
-      <Grid container spacing={3}>
-        <Grid item xs={12}>
-          <FormControl className={classes.root}>
-            <InputLabel htmlFor="tms-native-simple">Choose TMS</InputLabel>
-            <Select
-              native
-              value={tms}
-              onChange={setConfig("tms")}
-              inputProps={{
-                name: "tms",
-                id: "tms-native-simple"
-              }}
-            >
-              <option value="" />
-              <option value="postnord">postnord</option>
-              <option value="dhl">DHL</option>
-              <option value="getship">getship</option>
-              <option value="ghostship">GhostShip</option>
-            </Select>
-          </FormControl>
-        </Grid>
+      <TextField
+        id="tms"
+        select
+        label="TMS"
+        className={classes.textField}
+        value={tms}
+        onChange={setConfig('tms')}
+        SelectProps={{
+          MenuProps: {
+            className: classes.menu
+          }
+        }}
+        helperText="Please choose a tms"
+        margin="normal"
+        fullWidth
+      >
+        {tmsList.map(option => (
+          <MenuItem key={option.value} value={option.value}>
+            {option.label}
+          </MenuItem>
+        ))}
+      </TextField>
+      <Grid container spacing={3} >
         <Grid item xs={6}>
-          <TextField required id="identifier" label="Identifier" fullWidth onChange={setConfig("identifier")}/>
+          <TextField
+            required
+            id="identifier"
+            label="Identifier"
+            className={classes.textField}
+            onChange={setConfig('identifier')}
+            fullWidth
+          />
         </Grid>
         <Grid item xs={6}>
           <TextField
@@ -91,6 +98,8 @@ export default function IdentifierForm({ tms, setConfig }) {
             id="key"
             label="Key"
             type="password"
+            className={classes.textField}
+            onChange={setConfig('key')}
             fullWidth
           />
         </Grid>
