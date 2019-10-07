@@ -10,18 +10,12 @@ import IntegrationForm from './IntegrationForm';
 import IdentifierForm from './IdentifierForm';
 
 const useStyles = makeStyles(theme => ({
-
   dialogcontent: {
     overflow: 'hidden',
-    padding: '30px 30px 50px',
+    padding: '75px 50px 50px',
     display: 'block',
-    height: 250,
-    width: 400
-  },
-  dialogtitle: {
-    fontSize: 40,
-    padding: 20,
-    justifyContent: 'center'
+    height: 280,
+    width: 420
   }
 }));
 
