@@ -57,6 +57,7 @@ export default function ConfigForm({ open, closeCallback, submit }) {
   };
 
   const handleSubmit = () => {
+    // config.profile === '' ? alert('profile name cant be empty!') : 
     submit(config);
     closeCallback();
   };
